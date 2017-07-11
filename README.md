@@ -2,7 +2,7 @@
 
 This is a simple explorer for [ethereum](https://www.ethereum.org/) blockchain.
 
-## Depedencies
+## Dependencies
 
 - [Spring Boot](http://projects.spring.io/spring-boot/)
 - [lombok](http://projects.spring.io/spring-boot/)
