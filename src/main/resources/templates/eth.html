@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title>区块链浏览器</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="区块链浏览器"/>
+    <meta name="keywords" content="区块链,区块链浏览器"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, sys-scalable=no"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="stylesheet" href="../static/css/amazeui.min.css" th:href="@{/css/amazeui.min.css}"/>
+    <script src="../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+    <script src="../static/js/libs/amazeui.min.js" th:src="@{/js/libs/amazeui.min.js}"></script>
+    <script src="../static/js/libs/moment.min.js" th:src="@{/js/libs/moment.min.js}"></script>
+    <script src="../static/js/libs/vue.js" th:src="@{/js/libs/vue.js}"></script>
+    <script src="../static/js/libs/stomp.min.js" th:src="@{/js/libs/stomp.min.js}"></script>
+    <script src="../static/js/libs/sockjs.min.js" th:src="@{/js/libs/sockjs.min.js}"></script>
+    <script src="../static/js/common.js" th:src="@{/js/common.js}"></script>
+    <!--[if lte IE 9]>
+    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，系统暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+        以获得更好的体验！</p>
+    <![endif]-->
+</head>
+<body>
+<div id="blocks" class="am-panel am-panel-primary" style="margin: 1em;">
+    <header class="am-panel-hd">
+        <span class="am-panel-title">最新区块</span>
+        <a href="javascript:void(0)" th:href="@{/eth/blocks}"
+           style="float: right;color:white;text-decoration: underline;">查看所有</a>
+    </header>
+    <div class="am-panel-bd">
+        <form class="am-form">
+            <div class="am-form-group am-form-icon">
+                <input id="searchBlock" type="text" class="am-form-field am-round" placeholder="请输入区块号或者块哈希"/>
+                <i class="am-icon-search"></i>
+            </div>
+        </form>
+    </div>
+    <table class="am-table am-scrollable-horizontal am-text-nowrap am-table-bordered">
+        <thead>
+        <tr>
+            <th>高度</th>
+            <th>创建时间</th>
+            <th>块哈希</th>
+            <th>交易数</th>
+            <th>创建者</th>
+            <th>区块大小(字节)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="block in data">
+            <td><a v-bind:href="'/eth/block/'+block.hash">{{block.number}}</a></td>
+            <td>{{(block.timestamp*1000) | moment}}</td>
+            <td><a v-bind:href="'/eth/block/'+block.hash">{{block.hash}}</a></td>
+            <td>{{block.transactions.length}}</td>
+            <td><a v-bind:href="'/eth/account/'+block.miner">{{block.miner}}</a></td>
+            <td>{{block.size}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="transactions" class="am-panel am-panel-primary" style="margin: 1em;">
+    <header class="am-panel-hd">
+        <span class="am-panel-title">最新交易</span>
+    </header>
+    <div class="am-panel-bd">
+        <form class="am-form">
+            <div class="am-form-group am-form-icon">
+                <input id="searchTx" type="text" class="am-form-field am-round" placeholder="请输入交易哈希"/>
+                <i class="am-icon-search"></i>
+            </div>
+        </form>
+    </div>
+    <table class="am-table am-scrollable-horizontal am-text-nowrap am-table-bordered">
+        <thead>
+        <tr>
+            <!--<th>区块高度</th>-->
+            <th>交易地址</th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="tx in data">
+            <!--<td><a v-bind:href="'/eth/block/'+tx.blockHash">{{tx.blockNumber}}</a></td>-->
+            <td><a v-bind:href="'/eth/transaction/'+tx.hash">{{tx.hash}}</a></td>
+            <td><a v-bind:href="'/eth/account/'+tx.from">{{tx.from}}</a></td>
+            <td><a v-bind:href="'/eth/account/'+tx.to">{{tx.to}}</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 提示信息 -->
+<div style="z-index: 999999;" class="am-modal am-modal-alert" tabindex="-1" id="alert-modal">
+    <div class="am-modal-dialog" style="box-shadow:0 3px 8px black">
+        <div class="am-modal-hd">系统提示</div>
+        <div class="am-modal-bd">
+            <span id="alert-message"></span>
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn">确定</span>
+        </div>
+    </div>
+</div>
+<!--[if lt IE 9]>
+<script src="../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+<script src="../static/js/libs/modernizr.js" th:src="@{/js/libs/modernizr.js}"></script>
+<script src="../static/js/libs/amazeui.ie8polyfill.min.js" th:src="@{/js/libs/amazeui.ie8polyfill.min.js}"></script>
+<![endif]-->
+
+<script src="../static/js/eth/eth.js" th:src="@{/js/eth/eth.js}"></script>
+
+</body>
+</html>

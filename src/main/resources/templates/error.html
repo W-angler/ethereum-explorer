@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>哎呀，粗线了一个错误！</title>
+    <meta name="description" content="哎呀，粗线了一个错误！"/>
+    <meta name="keywords" content="404"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="stylesheet" href="../static/css/amazeui.min.css" th:href="@{/css/amazeui.min.css}"/>
+    <!--[if lte IE 9]>
+    <p class="browsehappy">
+        你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请
+        <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>以获得更好的体验！
+    </p>
+    <![endif]-->
+</head>
+<body>
+<div class="admin-content" style="background: white !important;">
+    <div class="admin-content-body">
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <h2 class="am-text-center am-text-xxxl am-margin-top-lg" th:text="${status}+'. '+${error}">错误码以及错误描述</h2>
+                <p class="am-text-center">哎呀，粗线了一个错误！</p>
+                <pre class="page-404">
+          .----.
+       _.'__    `.
+   .--($)($$)---/#\
+ .' @          /###\
+ :         ,   #####
+  `-..__.-' _.-\###/
+        `;_:    `"'
+      .'"""""`.
+     /, oops ,\\
+    //  error! \\
+    `-._______.-'
+    ___`. | .'___
+   (______|______)
+        </pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+<!--<![endif]-->
+<script src="../static/js/libs/amazeui.min.js" th:src="@{/js/libs/amazeui.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${hasErrors}?'出现错误':'第'+${block.getNumber()}+'个区块的信息'"></title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="区块链浏览器"/>
+    <meta name="keywords" content="区块链,区块链浏览器"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, sys-scalable=no"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="stylesheet" href="../../static/css/amazeui.min.css" th:href="@{/css/amazeui.min.css}"/>
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}"/>
+    <script src="../../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+    <script src="../../static/js/libs/amazeui.min.js" th:src="@{/js/libs/amazeui.min.js}"></script>
+    <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+    <!--[if lte IE 9]>
+    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，系统暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+        以获得更好的体验！</p>
+    <![endif]-->
+</head>
+<body>
+<div class="am-panel am-panel-primary" style="margin: 1em;" th:if="${!hasErrors}">
+    <header class="am-panel-hd">
+        <span class="am-panel-title">区块信息</span>
+        <a href="javascript:void(0)" th:href="@{/}" style="float: right;color:white;text-decoration: underline;">返回</a>
+    </header>
+    <div class="am-panel-bd">
+    </div>
+    <ul class="am-list am-list-static am-list-border">
+        <li>区块高度：<span th:text="${block.getNumber()}"></span></li>
+        <li>时间戳：<span th:text="${block.getTimestampRaw()}"></span></li>
+        <li>交易：<span>
+            一共有
+            <span class="am-badge am-badge-success">
+                <a href="javascript:void(0)" th:href="|/eth/transactions?blockHash=${block.getHash()}|"
+                   th:text="${block.getTransactions().size()}" style="color: white;"></a>
+            </span>
+            个交易
+            </span>
+        </li>
+        <li>哈希值：<span th:text="${block.getHash()}"></span></li>
+        <li>父节点哈希值：<span><a th:text="${block.getParentHash()}"
+                            th:href="|/eth/block/${block.getParentHash()}|"></a></span></li>
+        <li>Sha3Uncles：<span th:text="${block.getSha3Uncles()}"></span></li>
+        <li>创建者：<span><a th:text="${block.getMiner()}" th:href="|/eth/account/${block.getMiner()}|"></a></span></li>
+        <li>难度值：<span th:text="${block.getDifficulty()}"></span></li>
+        <li>总体难度：<span th:text="${block.getTotalDifficulty()}"></span></li>
+        <li>区块大小(字节)：<span th:text="${block.getSize()}"></span></li>
+        <li>Transaction Root：<span th:text="${block.getTransactionsRoot()}"></span></li>
+        <li>State Root：<span th:text="${block.getStateRoot()}"></span></li>
+        <li>Gas Limit：<span th:text="${block.getGasLimit()}"></span></li>
+        <li>Gas Used：<span th:text="${block.getGasUsed()}"></span></li>
+        <li>Nonce：<span th:text="${block.getNonce()}"></span></li>
+        <li>Extra：<span th:text="${block.getExtraData()}"></span></li>
+    </ul>
+</div>
+
+<div class="am-alert am-alert-danger" data-am-alert="" th:if="${hasErrors}">
+    无法获取区块信息！
+</div>
+<!--[if lt IE 9]>
+<script src="../../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+<script src="../../static/js/libs/modernizr.js" th:src="@{/js/libs/modernizr.js}"></script>
+<script src="../../static/js/libs/amazeui.ie8polyfill.min.js" th:src="@{/js/libs/amazeui.ie8polyfill.min.js}"></script>
+<![endif]-->
+
+</body>
+</html>

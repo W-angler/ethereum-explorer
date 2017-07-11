@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>所有的区块</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="区块链浏览器"/>
+    <meta name="keywords" content="区块链,区块链浏览器"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, sys-scalable=no"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="stylesheet" href="../../static/css/amazeui.min.css" th:href="@{/css/amazeui.min.css}"/>
+    <script src="../../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+    <script src="../../static/js/libs/amazeui.min.js" th:src="@{/js/libs/amazeui.min.js}"></script>
+    <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+    <!--[if lte IE 9]>
+    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，系统暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+        以获得更好的体验！</p>
+    <![endif]-->
+</head>
+<body>
+<div class="am-panel am-panel-primary" style="margin: 1em;" th:if="${!hasErrors}">
+    <header class="am-panel-hd">
+        <span class="am-panel-title">所有区块</span>
+        <a href="javascript:void(0)" th:href="@{/}" style="float: right;color:white;text-decoration: underline;">返回</a>
+    </header>
+    <div class="am-panel-bd">
+        <ul class="am-pagination">
+            <li class="am-pagination-prev" th:if="${page}!=${pages}">
+                <a href="javascript:void(0)" th:href="|/eth/blocks?page=${page+1}|">
+                    <span class="am-icon-angle-double-left"></span>上一页
+                </a>
+            </li>
+            <li class="am-pagination-prev am-disabled" th:if="${page}==${pages}" >
+                <a href="javascript:void(0)">
+                    <span class="am-icon-angle-double-left"></span>上一页
+                </a>
+            </li>
+            <li class="am-pagination-next" th:if="${page}!=1">
+                <a href="javascript:void(0)" th:href="|/eth/blocks?page=${page-1}|">
+                    下一页<span class="am-icon-angle-double-right"></span>
+                </a>
+            </li>
+            <li class="am-pagination-next am-disabled" th:if="${page}==1">
+                <a href="javascript:void(0)">
+                    下一页<span class="am-icon-angle-double-right"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <table class="am-table am-scrollable-horizontal am-text-nowrap am-table-bordered">
+        <thead>
+        <tr>
+            <th>高度</th>
+            <th>块哈希</th>
+            <th>交易数</th>
+            <th>创建者</th>
+            <th>区块大小(字节)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="block:${blocks}">
+            <td th:text="${block.getNumber()}"></td>
+            <td><a th:text="${block.getHash()}" th:href="|/eth/block/${block.getHash()}|"></a></td>
+            <td th:text="${block.getTransactions().size()}"></td>
+            <td><a th:text="${block.getMiner()}" th:href="|/eth/account/${block.getMiner()}|"></a></td>
+            <td th:text="${block.getSize()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="am-alert am-alert-danger" data-am-alert="" th:if="${hasErrors}">
+    无法获取区块信息！
+</div>
+
+<!--[if lt IE 9]>
+<script src="../../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>
+<script src="../../static/js/libs/modernizr.js" th:src="@{/js/libs/modernizr.js}"></script>
+<script src="../../static/js/libs/amazeui.ie8polyfill.min.js" th:src="@{/js/libs/amazeui.ie8polyfill.min.js}"></script>
+<![endif]-->
+
+</body>
+</html>
