@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <title>区块链浏览器</title>
+    <title>Ethereum Explorer</title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description" content="区块链浏览器"/>
-    <meta name="keywords" content="区块链,区块链浏览器"/>
+    <meta name="description" content="Ethereum Explorer"/>
+    <meta name="keywords" content="Ethereum Explorer,Ethereum,Blockchain"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, sys-scalable=no"/>
     <meta name="renderer" content="webkit"/>
     <link rel="stylesheet" href="../static/css/amazeui.min.css" th:href="@{/css/amazeui.min.css}"/>
@@ -17,21 +17,21 @@
     <script src="../static/js/libs/sockjs.min.js" th:src="@{/js/libs/sockjs.min.js}"></script>
     <script src="../static/js/common.js" th:src="@{/js/common.js}"></script>
     <!--[if lte IE 9]>
-    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，系统暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-        以获得更好的体验！</p>
+    <p class="browsehappy">You are using a<strong> outdated </strong>browser which is not supported in this website. please <a href="http://browsehappy.com/" target="_blank">UPDATE YOUR BROWSER</a>
+        and try again!</p>
     <![endif]-->
 </head>
 <body>
 <div id="blocks" class="am-panel am-panel-primary" style="margin: 1em;">
     <header class="am-panel-hd">
-        <span class="am-panel-title">最新区块</span>
+        <span class="am-panel-title">Newest Blocks</span>
         <a href="javascript:void(0)" th:href="@{/eth/blocks}"
-           style="float: right;color:white;text-decoration: underline;">查看所有</a>
+           style="float: right;color:white;text-decoration: underline;">All</a>
     </header>
     <div class="am-panel-bd">
         <form class="am-form">
             <div class="am-form-group am-form-icon">
-                <input id="searchBlock" type="text" class="am-form-field am-round" placeholder="请输入区块号或者块哈希"/>
+                <input id="searchBlock" class="am-form-field am-round" placeholder="please input block number or block hash"/>
                 <i class="am-icon-search"></i>
             </div>
         </form>
@@ -39,12 +39,12 @@
     <table class="am-table am-scrollable-horizontal am-text-nowrap am-table-bordered">
         <thead>
         <tr>
-            <th>高度</th>
-            <th>创建时间</th>
-            <th>块哈希</th>
-            <th>交易数</th>
-            <th>创建者</th>
-            <th>区块大小(字节)</th>
+            <th>Height</th>
+            <th>Timestamp</th>
+            <th>BlockHash</th>
+            <th>TXs</th>
+            <th>Miner</th>
+            <th>Size(Bytes)</th>
         </tr>
         </thead>
         <tbody>
@@ -61,12 +61,12 @@
 </div>
 <div id="transactions" class="am-panel am-panel-primary" style="margin: 1em;">
     <header class="am-panel-hd">
-        <span class="am-panel-title">最新交易</span>
+        <span class="am-panel-title">Newest Transactions</span>
     </header>
     <div class="am-panel-bd">
         <form class="am-form">
             <div class="am-form-group am-form-icon">
-                <input id="searchTx" type="text" class="am-form-field am-round" placeholder="请输入交易哈希"/>
+                <input id="searchTx" class="am-form-field am-round" placeholder="please input transaction hash"/>
                 <i class="am-icon-search"></i>
             </div>
         </form>
@@ -74,8 +74,8 @@
     <table class="am-table am-scrollable-horizontal am-text-nowrap am-table-bordered">
         <thead>
         <tr>
-            <!--<th>区块高度</th>-->
-            <th>交易地址</th>
+            <!--<th>Height</th>-->
+            <th>Address</th>
             <th>From</th>
             <th>To</th>
         </tr>
@@ -91,15 +91,15 @@
     </table>
 </div>
 
-<!-- 提示信息 -->
+<!-- info -->
 <div style="z-index: 999999;" class="am-modal am-modal-alert" tabindex="-1" id="alert-modal">
     <div class="am-modal-dialog" style="box-shadow:0 3px 8px black">
-        <div class="am-modal-hd">系统提示</div>
+        <div class="am-modal-hd">System Info</div>
         <div class="am-modal-bd">
             <span id="alert-message"></span>
         </div>
         <div class="am-modal-footer">
-            <span class="am-modal-btn">确定</span>
+            <span class="am-modal-btn">OK</span>
         </div>
     </div>
 </div>

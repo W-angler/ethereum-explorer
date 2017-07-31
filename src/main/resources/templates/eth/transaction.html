@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="交易详情信息"></title>
+    <title th:text="${hasErrors}?'Errors!':'Transaction '+ ${transaction.getHash()}"></title>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description" content="区块链浏览器"/>
-    <meta name="keywords" content="区块链,区块链浏览器"/>
+    <meta name="description" content="Ethereum Explorer"/>
+    <meta name="keywords" content="Ethereum Explorer,Ethereum,Blockchain"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, sys-scalable=no"/>
     <meta name="renderer" content="webkit"/>
     <link rel="stylesheet" href="../../static/css/amazeui.min.css" th:href="@{/css/amazeui.min.css}"/>
@@ -13,48 +13,48 @@
     <script src="../../static/js/libs/amazeui.min.js" th:src="@{/js/libs/amazeui.min.js}"></script>
     <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
     <!--[if lte IE 9]>
-    <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，系统暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-        以获得更好的体验！</p>
+    <p class="browsehappy">You are using a<strong> outdated </strong>browser which is not supported in this website. please <a href="http://browsehappy.com/" target="_blank">UPDATE YOUR BROWSER</a>
+        and try again!</p>
     <![endif]-->
 </head>
 <body>
 <div class="am-panel am-panel-primary" style="margin: 1em;" th:if="${!hasErrors}">
     <header class="am-panel-hd">
-        <span class="am-panel-title">交易详情</span>
-        <a href="javascript:void(0)" th:href="@{/}" style="float: right;color:white;text-decoration: underline;">返回</a>
+        <span class="am-panel-title">Transaction Details</span>
+        <a href="javascript:void(0)" th:href="@{/}" style="float: right;color:white;text-decoration: underline;">Back</a>
     </header>
     <div class="am-panel-bd">
     </div>
     <ul class="am-list am-list-static am-list-border">
-        <li>哈希：<span th:text="${transaction.getHash()}"></span></li>
-        <li>区块高度：
+        <li>Hash:<span th:text="${transaction.getHash()}"></span></li>
+        <li>Block Number:
             <span>
                 <a href="javascript:void(0)" th:href="|/eth/block/${transaction.getBlockHash()}|"
                    th:text="${transaction.getBlockNumber()}"></a>
             </span>
         </li>
-        <li>区块哈希：
+        <li>Block Hash:
             <span>
                 <a href="javascript:void(0)" th:href="|/eth/block/${transaction.getBlockHash()}|"
                    th:text="${transaction.getBlockHash()}"></a>
             </span>
         </li>
-        <li>公钥：<span th:text="${transaction.getPublicKey()}"></span></li>
-        <li>From：<span><a th:text="${transaction.getFrom()}" th:href="|/eth/account/${transaction.getFrom()}|"></a></span></li>
-        <li>To：<span><a th:text="${transaction.getTo()}" th:href="|/eth/account/${transaction.getTo()}|"></a></span></li>
-        <li>Value：<span th:text="${transaction.getValue()}"></span></li>
-        <li>Gas：<span th:text="${transaction.getGas()}"></span></li>
-        <li>Gas Price：<span th:text="${transaction.getGasPrice()}"></span></li>
-        <li>Nonce：<span th:text="${transaction.getNonce()}"></span></li>
-        <li>R：<span th:text="${transaction.getR()}"></span></li>
-        <li>S：<span th:text="${transaction.getS()}"></span></li>
-        <li>V：<span th:text="${transaction.getV()}"></span></li>
-        <li>Input：<p th:text="${transaction.getInput()}" style="overflow-wrap: break-word;"></p></li>
+        <li>Public Key:<span th:text="${transaction.getPublicKey()}"></span></li>
+        <li>From:<span><a th:text="${transaction.getFrom()}" th:href="|/eth/account/${transaction.getFrom()}|"></a></span></li>
+        <li>To:<span><a th:text="${transaction.getTo()}" th:href="|/eth/account/${transaction.getTo()}|"></a></span></li>
+        <li>Value:<span th:text="${transaction.getValue()}"></span></li>
+        <li>Gas:<span th:text="${transaction.getGas()}"></span></li>
+        <li>Gas Price:<span th:text="${transaction.getGasPrice()}"></span></li>
+        <li>Nonce:<span th:text="${transaction.getNonce()}"></span></li>
+        <li>R:<span th:text="${transaction.getR()}"></span></li>
+        <li>S:<span th:text="${transaction.getS()}"></span></li>
+        <li>V:<span th:text="${transaction.getV()}"></span></li>
+        <li>Input:<p th:text="${transaction.getInput()}" style="overflow-wrap: break-word;"></p></li>
     </ul>
 </div>
 
 <div class="am-alert am-alert-danger" data-am-alert="" th:if="${hasErrors}">
-    无法获取交易信息！
+    Can't get transaction information!
 </div>
 <!--[if lt IE 9]>
 <script src="../../static/js/libs/jquery.min.js" th:src="@{/js/libs/jquery.min.js}"></script>

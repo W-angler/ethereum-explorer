@@ -9,12 +9,12 @@ var ethURLs = {
     searchBlock: "/eth/block/search",
     searchTx: "/eth/transaction/search"
 };
-//弹出提示框
+//alert a modal dialog
 function alertModal(msg) {
     $("#alert-message").text(msg);
     $('#alert-modal').modal();
 }
-//时间格式化
+//format datetime
 Vue.filter('moment', function (value, formatString) {
     formatString = formatString || 'YYYY-MM-DD HH:mm:ss';
     return moment(value).format(formatString);
@@ -23,7 +23,7 @@ var socket = new SockJS(ethURLs.WSConnection);
 var stompClient = Stomp.over(socket);
 stompClient.connect({}, function (frame) {
     console.log("Connected:" + frame);
-    //区块
+    //blocks
     var blocks = new Vue({
         el: "#blocks",
         data: {
@@ -49,7 +49,7 @@ stompClient.connect({}, function (frame) {
             }
         }
     });
-    //区块搜索
+    //search blocks
     $("#searchBlock").keydown(function (e) {
         if (e.keyCode === 13) {
             e.preventDefault();
@@ -65,7 +65,7 @@ stompClient.connect({}, function (frame) {
             }
         }
     });
-    //交易
+    //transactions
     var txs = new Vue({
         el: "#transactions",
         data: {
@@ -91,7 +91,7 @@ stompClient.connect({}, function (frame) {
             }
         }
     });
-    //交易搜索
+    //search transaction
     $("#searchTx").keydown(function (e) {
         if (e.keyCode === 13) {
             e.preventDefault();

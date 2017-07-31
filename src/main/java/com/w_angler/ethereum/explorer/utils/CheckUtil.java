@@ -9,7 +9,7 @@ public class CheckUtil {
     private static final char[] HEX="abcdefABCDEF".toCharArray();
 
     /**
-     * 是否是有效的十六进制数
+     * is valid hex?
      * @param str
      * @return
      */
